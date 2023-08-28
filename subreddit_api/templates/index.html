@@ -1,40 +1,76 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reddit Threads</title>
-    <style>
-        /* Add your basic styling here */
-    </style>
-</head>
-<body>
-    <div id="threads"></div>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reddit Threads</title>
+  <style>
+   /* Add your basic styling here */
+  </style>
+ </head>
+ <body>
+  <div id="threads"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var threadsContainer = document.getElementById('threads');
-    
-            fetch('/subreddit_api/threads/')  // Adjust the URL here
-                .then(function(response) {
-                    return response.json();
-                })
-                .then(function(data) {
-                    data.forEach(function(thread) {
-                        var threadElement = document.createElement('div');
-                        var threadTitle = document.createElement('h2');
-                        threadTitle.textContent = thread.data.title;
-                        var threadSelftext = document.createElement('p');
-                        threadSelftext.textContent = thread.data.selftext;
-                        threadElement.appendChild(threadTitle);
-                        threadElement.appendChild(threadSelftext);
-                        threadsContainer.appendChild(threadElement);
-                    });
-                })
-                .catch(function(error) {
-                    console.error('Error fetching threads:', error);
-                });
-        });
-    </script>
-</body>
+  <script>
+    //    document.addEventListener('DOMContentLoaded', function() {
+    //        var threadsContainer = document.getElementById('threads');
+
+    //        fetch('/subreddit_api/threads/')  // Adjust the URL here
+    //            .then(function(response) {
+    //                return response.json();
+    //            })
+    //            .then(function(data) {
+    //                data.forEach(function(thread) {
+    //                    var threadElement = document.createElement('div');
+    //                    var threadTitle = document.createElement('h2');
+    //                    threadTitle.textContent = thread.data.title;
+    //                    var threadSelftext = document.createElement('p');
+    //                    threadSelftext.textContent = thread.data.selftext;
+    //                    threadElement.appendChild(threadTitle);
+    //                    threadElement.appendChild(threadSelftext);
+    //                    threadsContainer.appendChild(threadElement);
+    //                });
+    //            })
+    //            .catch(function(error) {
+    //                console.error('Error fetching threads:', error);
+    //            });
+    //    });
+    function renderData(data) {
+      const container = document.getElementById('threads');
+
+      container.innerHTML = '';
+
+      data.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.textContent = item.name;
+        container.appendChild(itemElement);
+      });
+    }
+    fetch('/subreddit_api/threads/').then(response => response.json()).then(data => {
+     renderData(data);
+    }).catch(error => {
+     console.log('Error fetching data:', error);
+   });
+  </script>
+ </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Reddit Threads</title>
+ </head>
+ <body>
+  <h1>Reddit Threads from r/technology</h1>
+  <ul>
+   {% for thread in data %}
+   <li>
+    <strong>{{ thread.title }}</strong><br />
+    Author: {{ thread.author }}<br />
+    Created: {{ thread.creation_date|date:"D, d M Y H:i:s" }}<br />
+    <a href="{{ thread.link }}">Link</a>
+   </li>
+   {% endfor %}
+  </ul>
+ </body>
 </html>
