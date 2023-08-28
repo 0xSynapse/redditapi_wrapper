@@ -26,5 +26,5 @@ def get_subreddit_threads(request):
             'link': thread.url
         })
     
-    #return JsonResponse(data, safe=False)
+    # return JsonResponse(data, safe=False)
     return render(request, 'index.html', {'data': data})
