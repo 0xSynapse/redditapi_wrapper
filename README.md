@@ -12,7 +12,7 @@ The backend of the web application is developed using Python. It utilizes the Re
 
 2. Use the Reddit API to authenticate and fetch articles from the chosen subreddit.
 
-3. Create a route in the Flask application to serve the fetched articles as JSON data.
+3. Create a route in the Django application to serve the fetched articles as JSON data.
 
 ## Frontend
 
